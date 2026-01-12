@@ -117,12 +117,12 @@ GET http://localhost:3000/api/products
 ## 📦 Bibliotecas Instaladas (npm)
 
 ### 🛠️ Backend
-*npm install express cors mysql2 dotenv*
-*npm install -D typescript ts-node-dev @types/express @types/cors*
+- *npm install express cors mysql2 dotenv*
+- *npm install -D typescript ts-node-dev @types/express @types/cors*
 
 ### 🎨 Frontend
-*npm install axios*
-*npm install react-router-dom*
+- *npm install axios*
+- *npm install react-router-dom*
 
 
 ## ✅ Observações Finais
