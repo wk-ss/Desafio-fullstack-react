@@ -1,20 +1,43 @@
 import { NavLink } from "react-router-dom";
-import "./menu.css";
+import { Box, Button, Flex } from "@chakra-ui/react";
 
 export function Menu() {
   return (
-    <nav className="menu">
-      <NavLink to="/" end>
-        Listar
-      </NavLink>
+    <Box bg="blue.600" py={4}>
+      <Flex
+        maxW="1200px"
+        mx="auto"
+        gap={4}
+        justify="center"
+      >
+        <Button
+          as={NavLink}
+          to="/"
+          end
+          colorScheme="blue"
+          variant="solid"
+        >
+          Listar
+        </Button>
 
-      <NavLink to="/cadastrar">
-        Cadastrar
-      </NavLink>
+        <Button
+          as={NavLink}
+          to="/cadastrar"
+          colorScheme="blue"
+          variant="solid"
+        >
+          Cadastrar
+        </Button>
 
-      <NavLink to="/buscar">
-        Buscar
-      </NavLink>
-    </nav>
+        <Button
+          as={NavLink}
+          to="/buscar"
+          colorScheme="blue"
+          variant="solid"
+        >
+          Buscar
+        </Button>
+      </Flex>
+    </Box>
   );
 }

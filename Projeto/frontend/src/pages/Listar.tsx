@@ -3,53 +3,92 @@ import { api } from "../services/api";
 import { Link } from "react-router-dom";
 import { converter, simbolo, type Moeda } from "../utils/cambio";
 
+import {
+  Box,
+  Heading,
+  Select,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Button,
+  Flex,
+  Spinner
+} from "@chakra-ui/react";
+
 export function Listar() {
-    const [produtos, setProdutos] = useState<any[]>([]);
-    const [moeda, setMoeda] = useState<Moeda>("BRL");
+  const [produtos, setProdutos] = useState<any[]>([]);
+  const [moeda, setMoeda] = useState<Moeda>("BRL");
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        api.get("/products").then((res) => setProdutos(res.data));
-    }, []);
+  useEffect(() => {
+    api
+      .get("/products")
+      .then((res) => setProdutos(res.data))
+      .finally(() => setLoading(false));
+  }, []);
 
-    return (
-        <div className="lista-produtos-container">
-            <h2>Lista de Produtos</h2>
+  return (
+    <Box p={6}>
+      <Heading size="md" mb={4}>
+        Lista de Produtos
+      </Heading>
 
-            { }
-            <select value={moeda} onChange={(e) => setMoeda(e.target.value as Moeda)}>
-                <option value="BRL">Real (R$)</option>
-                <option value="USD">Dólar (US$)</option>
-                <option value="RUB">Rublo (₽)</option>
-            </select>
+      {/* SELETOR DE MOEDA */}
+      <Select
+        value={moeda}
+        onChange={(e) => setMoeda(e.target.value as Moeda)}
+        maxW="200px"
+        mb={4}
+      >
+        <option value="BRL">Real (R$)</option>
+        <option value="USD">Dólar (US$)</option>
+        <option value="RUB">Rublo (₽)</option>
+      </Select>
 
-            <table border={1} cellPadding={8} style={{ marginTop: 30 }}>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Preço</th>
-                        <th>Quantidade</th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {produtos.map((p) => (
-                        <tr key={p.id}>
-                            <td>{p.nome}</td>
-                            <td>
-                                {simbolo(moeda)} {converter(p.preco, moeda)}
-                            </td>
-                            <td>{p.quantidade}</td>
-                            <td>{p.ativo ? "Ativo" : "Inativo"}</td>
-                            <td>
-                                <Link to={`/editar/${p.id}`}>
-                                    <button>Editar</button>
-                                </Link>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
+      {/* LOADING */}
+      {loading ? (
+        <Flex justify="center" mt={10}>
+          <Spinner size="xl" />
+        </Flex>
+      ) : (
+        <TableContainer>
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th>Nome</Th>
+                <Th>Preço</Th>
+                <Th>Quantidade</Th>
+                <Th>Status</Th>
+                <Th>Ações</Th>
+              </Tr>
+            </Thead>
+
+            <Tbody>
+              {produtos.map((p) => (
+                <Tr key={p.id}>
+                  <Td>{p.nome}</Td>
+                  <Td>
+                    {simbolo(moeda)} {converter(p.preco, moeda)}
+                  </Td>
+                  <Td>{p.quantidade}</Td>
+                  <Td>{p.ativo ? "Ativo" : "Inativo"}</Td>
+                  <Td>
+                    <Link to={`/editar/${p.id}`}>
+                      <Button size="sm" colorScheme="yellow">
+                        Editar
+                      </Button>
+                    </Link>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
+    </Box>
+  );
 }

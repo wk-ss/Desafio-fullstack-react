@@ -2,7 +2,7 @@
 
 # 🚀 Desafio Técnico Fullstack
 
-Desafio técnico Fullstack desenvolvido com **React + Vite**, **TypeScript** e **MySQL**, com o objetivo de demonstrar conhecimentos práticos na integração entre um frontend moderno e um backend em **Node.js/Express**. A aplicação permite o gerenciamento de produtos, incluindo listagem, cadastro e controle de preço, quantidade e status, sendo necessário apenas configurar a senha do banco de dados no arquivo *.env* do backend para execução do sistema.
+Desafio técnico Fullstack desenvolvido com **React + Vite**, **TypeScript**, **Chakra UI** e **MySQL**, com o objetivo de demonstrar conhecimentos práticos na integração entre um frontend moderno e um backend em **Node.js/Express**. A aplicação permite o gerenciamento de produtos, incluindo listagem, cadastro e controle de preço, quantidade e status, sendo necessário apenas configurar a senha do banco de dados no arquivo *.env* do backend para execução do sistema.
 
 
 Para rodar o codigo, entre na pasta /Projeto e rode o seguinte comando no terminal:
@@ -18,6 +18,7 @@ cmd   npm run dev
 - **Vite**
 - **TypeScript**
 - **Axios**
+- **Chakra UI**
 
 ### 🛠️ Backend
 - **Node.js**
@@ -123,6 +124,7 @@ GET http://localhost:3000/api/products
 ### 🎨 Frontend
 - *npm install axios*
 - *npm install react-router-dom*
+- *npm install @chakra-ui/react @emotion/react @emotion/styled framer-motion*
 
 
 ## ✅ Observações Finais

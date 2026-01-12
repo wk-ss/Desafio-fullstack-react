@@ -3,98 +3,141 @@ import { api } from "../services/api";
 import { Link } from "react-router-dom";
 import { converter, simbolo, type Moeda } from "../utils/cambio";
 
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Input,
+  Select,
+  Text,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer
+} from "@chakra-ui/react";
+
 export function Buscar() {
-    const [nome, setNome] = useState("");
-    const [produtos, setProdutos] = useState<any[]>([]);
-    const [erro, setErro] = useState("");
-    const [moeda, setMoeda] = useState<Moeda>("BRL");
+  const [nome, setNome] = useState("");
+  const [produtos, setProdutos] = useState<any[]>([]);
+  const [erro, setErro] = useState("");
+  const [moeda, setMoeda] = useState<Moeda>("BRL");
 
-    const buscar = async () => {
-        if (!nome.trim()) {
-            setErro("Digite algo para buscar");
-            setProdutos([]);
-            return;
-        }
+  const buscar = async () => {
+    if (!nome.trim()) {
+      setErro("Digite algo para buscar");
+      setProdutos([]);
+      return;
+    }
 
-        try {
-            const response = await api.get(`/products/buscar/${nome}`);
+    try {
+      const response = await api.get(`/products/buscar/${nome}`);
 
-            if (response.data.length === 0) {
-                setErro("Nenhum produto encontrado");
-                setProdutos([]);
-                return;
-            }
+      if (response.data.length === 0) {
+        setErro("Nenhum produto encontrado");
+        setProdutos([]);
+        return;
+      }
 
+      setErro("");
+      setProdutos(response.data);
+    } catch {
+      setErro("Erro ao buscar produto");
+      setProdutos([]);
+    }
+  };
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    buscar();
+  };
+
+  return (
+    <Box p={6}>
+      <Heading size="md" mb={4}>
+        Buscar Produto
+      </Heading>
+
+      {/* FORMULÁRIO DE BUSCA */}
+      <Flex
+        as="form"
+        onSubmit={onSubmit}
+        gap={2}
+        mb={4}
+        maxW="500px"
+      >
+        <Input
+          placeholder="Nome do produto"
+          value={nome}
+          onChange={(e) => {
+            setNome(e.target.value);
             setErro("");
-            setProdutos(response.data);
-        } catch {
-            setErro("Erro ao buscar produto");
-            setProdutos([]);
-        }
-    };
+          }}
+        />
 
-    const onSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        buscar();
-    };
+        <Button type="submit" colorScheme="blue">
+          Buscar
+        </Button>
+      </Flex>
 
-    return (
-        <div>
-            <h2>Buscar Produto</h2>
+      {/* SELEÇÃO DE MOEDA */}
+      <Select
+        value={moeda}
+        onChange={(e) => setMoeda(e.target.value as Moeda)}
+        maxW="200px"
+        mb={4}
+      >
+        <option value="BRL">Real (R$)</option>
+        <option value="USD">Dólar (US$)</option>
+        <option value="RUB">Rublo (₽)</option>
+      </Select>
 
-            <form onSubmit={onSubmit}>
-                <input
-                    type="text"
-                    placeholder="Nome do produto"
-                    value={nome}
-                    onChange={(e) => {
-                        setNome(e.target.value);
-                        setErro("");
-                    }}
-                />
+      {/* ERRO */}
+      {erro && (
+        <Text color="red.500" mb={4}>
+          {erro}
+        </Text>
+      )}
 
-                <button type="submit">Buscar</button>
-            </form>
+      {/* TABELA */}
+      {produtos.length > 0 && (
+        <TableContainer>
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th>Nome</Th>
+                <Th>Preço</Th>
+                <Th>Quantidade</Th>
+                <Th>Status</Th>
+                <Th>Ações</Th>
+              </Tr>
+            </Thead>
 
-            { }
-            <select value={moeda} onChange={(e) => setMoeda(e.target.value as Moeda)}>
-                <option value="BRL">Real (R$)</option>
-                <option value="USD">Dólar (US$)</option>
-                <option value="RUB">Rublo (₽)</option>
-            </select>
-
-            {erro && <p style={{ color: "red" }}>{erro}</p>}
-
-            {produtos.length > 0 && (
-                <table border={1} cellPadding={8} style={{ marginTop: 10 }}>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Preço</th>
-                            <th>Quantidade</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {produtos.map((p) => (
-                            <tr key={p.id}>
-                                <td>{p.nome}</td>
-                                <td>
-                                    {simbolo(moeda)} {converter(p.preco, moeda)}
-                                </td>
-                                <td>{p.quantidade}</td>
-                                <td>{p.ativo ? "Ativo" : "Inativo"}</td>
-                                <td>
-                                    <Link to={`/editar/${p.id}`}>
-                                        <button>Editar</button>
-                                    </Link>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
-        </div>
-    );
+            <Tbody>
+              {produtos.map((p) => (
+                <Tr key={p.id}>
+                  <Td>{p.nome}</Td>
+                  <Td>
+                    {simbolo(moeda)} {converter(p.preco, moeda)}
+                  </Td>
+                  <Td>{p.quantidade}</Td>
+                  <Td>{p.ativo ? "Ativo" : "Inativo"}</Td>
+                  <Td>
+                    <Link to={`/editar/${p.id}`}>
+                      <Button size="sm" colorScheme="yellow">
+                        Editar
+                      </Button>
+                    </Link>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
+    </Box>
+  );
 }
