@@ -1,0 +1,32 @@
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  width: 100%;
+  max-width: 1800px;
+  margin: 20px auto;
+  padding: 12px 16px;
+
+  background-color: #2563eb;
+  border-radius: 6px;
+}
+
+
+.menu a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.menu a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.menu a.active {
+  background-color: #1e40af;
+}
