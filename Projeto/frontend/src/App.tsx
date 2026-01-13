@@ -10,12 +10,12 @@ import { Editar } from "./pages/Editar";
 function App() {
   return (
     <BrowserRouter>
-      {/* Layout geral */}
+      {}
       <Box minH="100vh" bg="blue.100">
-        {/* Menu superior */}
+        {}
         <Menu />
 
-        {/* Conteúdo centralizado */}
+        {}
         <Box maxW="1200px" mx="auto" p={6}>
           <Routes>
             <Route path="/" element={<Listar />} />

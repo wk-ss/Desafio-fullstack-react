@@ -2,22 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { Link } from "react-router-dom";
 import { converter, simbolo, type Moeda } from "../utils/cambio";
-
-import {
-  Box,
-  Heading,
-  Select,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Button,
-  Flex,
-  Spinner
-} from "@chakra-ui/react";
+import {Box,Heading,Select,Table,Thead,Tbody,Tr,Th,Td,TableContainer,Button,Flex,Spinner} from "@chakra-ui/react";
 
 export function Listar() {
   const [produtos, setProdutos] = useState<any[]>([]);
@@ -37,7 +22,7 @@ export function Listar() {
         Lista de Produtos
       </Heading>
 
-      {/* SELETOR DE MOEDA */}
+      {}
       <Select
         value={moeda}
         onChange={(e) => setMoeda(e.target.value as Moeda)}
@@ -49,7 +34,7 @@ export function Listar() {
         <option value="RUB">Rublo (₽)</option>
       </Select>
 
-      {/* LOADING */}
+      {}
       {loading ? (
         <Flex justify="center" mt={10}>
           <Spinner size="xl" />

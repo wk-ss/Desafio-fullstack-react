@@ -1,21 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../services/api";
-
-import {
-  Box,
-  Heading,
-  Input,
-  Button,
-  FormControl,
-  FormLabel,
-  Checkbox,
-  Spinner,
-  Text,
-  Stack,
-  Alert,
-  AlertIcon
-} from "@chakra-ui/react";
+import {Box,Heading,Input,Button,FormControl,FormLabel,Checkbox,Spinner,Text,Stack,Alert,AlertIcon} from "@chakra-ui/react";
 
 export function Editar() {
   const { id } = useParams();

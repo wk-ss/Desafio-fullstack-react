@@ -1,17 +1,6 @@
 import { useState } from "react";
 import { api } from "../services/api";
-
-import {
-  Box,
-  Button,
-  Heading,
-  Input,
-  VStack,
-  FormControl,
-  FormLabel,
-  Text,
-  useToast
-} from "@chakra-ui/react";
+import {Box,Button,Heading,Input,VStack, FormControl,FormLabel,Text,useToast} from "@chakra-ui/react";
 
 export function Cadastrar() {
   const [nome, setNome] = useState("");

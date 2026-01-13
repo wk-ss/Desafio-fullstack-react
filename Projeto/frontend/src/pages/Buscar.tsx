@@ -2,23 +2,7 @@ import { useState } from "react";
 import { api } from "../services/api";
 import { Link } from "react-router-dom";
 import { converter, simbolo, type Moeda } from "../utils/cambio";
-
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Input,
-  Select,
-  Text,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer
-} from "@chakra-ui/react";
+import {Box,Button,Flex,Heading,Input,Select,Text,Table,Thead,Tbody,Tr,Th,Td,TableContainer} from "@chakra-ui/react";
 
 export function Buscar() {
   const [nome, setNome] = useState("");
@@ -61,7 +45,7 @@ export function Buscar() {
         Buscar Produto
       </Heading>
 
-      {/* FORMULÁRIO DE BUSCA */}
+      {}
       <Flex
         as="form"
         onSubmit={onSubmit}
@@ -83,7 +67,7 @@ export function Buscar() {
         </Button>
       </Flex>
 
-      {/* SELEÇÃO DE MOEDA */}
+      {}
       <Select
         value={moeda}
         onChange={(e) => setMoeda(e.target.value as Moeda)}
@@ -95,14 +79,14 @@ export function Buscar() {
         <option value="RUB">Rublo (₽)</option>
       </Select>
 
-      {/* ERRO */}
+      {}
       {erro && (
         <Text color="red.500" mb={4}>
           {erro}
         </Text>
       )}
 
-      {/* TABELA */}
+      {}
       {produtos.length > 0 && (
         <TableContainer>
           <Table variant="simple">
